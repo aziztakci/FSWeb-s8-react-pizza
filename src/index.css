@@ -73,6 +73,14 @@ body {
   height: 56px;
 }
 
+.main-section .btn:hover {
+  background-color: #fce490 ; 
+  transform: scale(1.1);
+  font-size: 20px;            
+  transition: all 0.3s;
+  cursor: pointer;                     
+}
+
 /* ===== MAIN - MENU ALANI ===== */
 
 .menu-categories {
@@ -134,6 +142,14 @@ body {
   padding: 0 30px;
   height: 48px;
   border: none;
+}
+
+.btn2:hover {
+  background-color: #fce490 ; 
+  transform: scale(1.1);
+  font-size: 16px;            
+  transition: all 0.3s;
+  cursor: pointer; 
 }
 
 .offer-content {
@@ -296,6 +312,16 @@ body {
   cursor: pointer;
   margin: 0;
 }
+
+.btn3:hover {
+  
+  background-color: #fce490 ; 
+  transform: scale(1.1);
+  font-size: 16px;            
+  transition: all 0.3s;
+  cursor: pointer; 
+}
+
 
 .card-bottom img {
   position: absolute;
