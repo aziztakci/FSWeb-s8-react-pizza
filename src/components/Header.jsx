@@ -1,6 +1,6 @@
-export default function Header() {
+export default function Header(props) {
 
-
+  const {setActivePage} = props;
     return (
     <>
     
@@ -15,7 +15,7 @@ export default function Header() {
         </h1>
       </div>
     </div>
-    <button className="btn">ACIKTIM</button>
+    <button className="btn" onClick={()=>setActivePage("order")}>ACIKTIM</button>
   </header>
 
     </>
