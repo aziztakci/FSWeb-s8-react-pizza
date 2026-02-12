@@ -1,4 +1,4 @@
-import mockData from "../Mock_Datas/mockData";
+import mockDataTopNav from "../Mock_Datas/mockDataTopNav";
 
 export default function MenuCategories() {
   
@@ -7,7 +7,7 @@ export default function MenuCategories() {
       <section className="menu-categories">
         <nav>
           <ul>
-            {mockData.map((object) => {
+            {mockDataTopNav.map((object) => {
               return (
                 <li key={object.id}>
                   <a href="#">

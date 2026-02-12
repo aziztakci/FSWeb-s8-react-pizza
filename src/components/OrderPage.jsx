@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import FormInputs from "./Order_Forms/FormInputs";
 
 const ButtonHome = styled.button`
   background: none;
@@ -22,7 +23,7 @@ export default function OrderPage(props) {
     <div className="order-page-container">
       <header className="order-header">
          <img src="/assets/iteration-1/logo.svg" alt="teknolojik-yemekler" />
-         <div>
+         
            <nav className="page-buttons">
              <ButtonHome className="page-btn" onClick={() => setActivePage("home")}>
                Anasayfa
@@ -30,8 +31,10 @@ export default function OrderPage(props) {
              <span className="page-seperator">-</span>
              <span className="page-active">Sipariş Oluştur</span>
            </nav>
-         </div>
+         
       </header>
+
+      <FormInputs />
 
 
     </div>

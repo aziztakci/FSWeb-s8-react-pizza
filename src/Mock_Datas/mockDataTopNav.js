@@ -1,4 +1,4 @@
-const mockData = [
+const mockDataTopNav = [
   {
     id: "1",
     imgUrl: "/assets/icons/kore.svg",
@@ -37,4 +37,4 @@ const mockData = [
   },
 ];
  
-export default mockData;
+export default mockDataTopNav;
