@@ -47,7 +47,7 @@ const ButtonSummary = styled.button`
 
 export default function SummaryBox (props) {
 
-    const {toppingsPrice,finalTotal,isFormInvalid,isNameValid}=props;
+    const {toppingsPrice,finalTotal,isFormInvalid,isNameValid,disabled}=props;
 
     return (
         <div>
@@ -68,7 +68,7 @@ export default function SummaryBox (props) {
         </DivContainer>
          <ButtonSummary
             type="submit"
-            disabled={isFormInvalid || isNameValid}
+            disabled={disabled}
             className="submit-button"
           >
             SİPARİŞ VER

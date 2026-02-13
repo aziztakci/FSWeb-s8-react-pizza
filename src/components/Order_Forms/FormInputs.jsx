@@ -59,7 +59,7 @@ export default function FormInputs(props) {
   const isNameValid = () => {
     let valid = false;
     const errorMessage = {};
-    if (formData.name.trim() === "") {
+    if (formData.name.trim().length < 2) {
       valid = true;
       errorMessage.name = "Adınızı Giriniz!";
     } setErrors(errorMessage);
@@ -71,6 +71,9 @@ export default function FormInputs(props) {
     formData.selectedToppings.length > 10 ||
     !formData.size ||
     !formData.dough;
+
+    const nameHasError = formData.name.trim().length < 2; 
+  const isButtonDisabled = isFormInvalid || nameHasError;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -174,6 +177,7 @@ export default function FormInputs(props) {
               toppingsPrice={toppingsPrice}
               finalTotal={finalTotal}
               isFormInvalid={isFormInvalid}
+              disabled={isButtonDisabled}
             />
           </DivSummary>
         </ContentSizer>
