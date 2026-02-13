@@ -1,10 +1,9 @@
 describe("Pizza Customization and Submission", () => {
-
     describe("Success Order In Test", () => {
-
         beforeEach(() => {
             cy.visit("http://localhost:5173/")
         })
+
         it("Should complete the order successfully and display results on the success page", () => {
             cy.get('[data-cy="btnHeader"]').click()
             cy.get('[data-cy="btnHome"]').click()
@@ -27,9 +26,13 @@ describe("Pizza Customization and Submission", () => {
             cy.get('[data-cy="dough-error-message"]').should('not.exist')
             cy.get('[data-cy="btnSubmit"]').should('be.disabled')
             cy.get('[data-cy="topping-1"]').check({ force: true })
+            cy.get('[data-cy="toppingPrice"]').should('contain', '5.00')
+            cy.get('[data-cy="totalPrice"]').should('contain', '90.50')
             cy.get('[data-cy="checkbox-error-message"]').should('be.visible')
             cy.get('[data-cy="btnSubmit"]').should('be.disabled')
             cy.get('[data-cy="topping-3"]').check({ force: true })
+            cy.get('[data-cy="toppingPrice"]').should('contain', '10.00')
+            cy.get('[data-cy="totalPrice"]').should('contain', '95.50')
             cy.get('[data-cy="checkbox-error-message"]').should('be.visible')
             cy.get('[data-cy="btnSubmit"]').should('be.disabled')
             cy.get('[data-cy="topping-5"]').check({ force: true })
@@ -51,17 +54,82 @@ describe("Pizza Customization and Submission", () => {
             cy.get('[data-cy="checkbox-error-message"]').should('not.exist')
             cy.get('[data-cy="topping-7"]').should('be.disabled')
             cy.get('[data-cy="label-7"]').should('have.css', 'opacity', '0.5')
-            cy.get('[data-cy="name-input"]').type("fzbz")
+            cy.get('[data-cy="name-input"]').type("fiizbuzz")
             cy.get('[data-cy="name-error-message"]').should('be.visible')
             cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("AzBz")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("           ")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("1111    1122331")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("a1111    b1122331")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("aaaa! bbb?")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("AzizTakcı.")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("Aziz! Takcı.")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+             cy.get('[data-cy="name-input"]').clear().type("Aziz. Takcı.")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("!Aziz Takcı")
+            cy.get('[data-cy="name-error-message"]').should('be.visible')
+            cy.get('[data-cy="btnSubmit"]').should('be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("Aziz Takcı.")
+            cy.get('[data-cy="name-error-message"]').should('not.exist')
+            cy.get('[data-cy="btnSubmit"]').should('not.be.disabled')
+            cy.get('[data-cy="name-input"]').clear().type("Aziz Takcı!")
+            cy.get('[data-cy="name-error-message"]').should('not.exist')
+            cy.get('[data-cy="btnSubmit"]').should('not.be.disabled')
+            
+            cy.get('[data-cy="name-input"]').clear().type("Aziz Takcı")
+            cy.get('[data-cy="name-error-message"]').should('not.exist')
+            cy.get('[data-cy="btnSubmit"]').should('not.be.disabled')
+            cy.get('[data-cy="countNum"]').should('contain', '1')
+            cy.get('[data-cy="decreaseCount"]').click()
+            cy.get('[data-cy="countNum"]').should('contain', '1')
+            cy.get('[data-cy="toppingPrice"]').should('contain', '50.00')
+            cy.get('[data-cy="totalPrice"]').should('contain', '135.50')
+            cy.get('[data-cy="increaseCount"]').click()
+            cy.get('[data-cy="countNum"]').should('contain', '2')
+            cy.get('[data-cy="totalPrice"]').should('contain', '271.00')
+            cy.get('[data-cy="toppingPrice"]').should('contain', '100.00')
+            cy.get('[data-cy="noteArea"]').type("Test note.!")
 
-
-
-
+            cy.intercept('POST', 'https://reqres.in/api/pizza').as('orderPizza')
+            cy.get('[data-cy="btnSubmit"]').click()
+            cy.wait('@orderPizza', { timeout: 20000 }).then((interception) => {
+                expect(interception.request.body.name).to.equal('Aziz Takcı');
+                expect(interception.request.body.toppings).to.have.length(10);
+                expect(interception.response.statusCode).to.equal(201);
+                expect(interception.response.body).to.have.property('id');
+                expect(interception.response.body.totalPrice).to.equal(271)
+                expect(interception.response.body.toppingPrice).to.equal(100)
+                expect(interception.response.body.num).to.equal(2)
+                expect(interception.response.body.size).to.equal('Büyük')
+                expect(interception.request.body.note).to.equal('Test note.!');
+                console.log(`API'den gelen yanıt:`, interception.response.body);
+                expect(interception.response.body).to.have.property('createdAt')
+            })
+            cy.contains('SİPARİŞ ALINDI').should('be.visible');
+            cy.contains('Boyut: Büyük').should('be.visible');
+            cy.contains('Hamur: İnce').should('be.visible');
+            cy.contains('Sipariş Notu: Test note.!').should('be.visible');
+            cy.contains('271.00₺').should('be.visible');
+            cy.get('[data-cy="btnHomePage"]').click()
+            cy.contains('KOD ACIKTIRIR').should('be.visible');
+            cy.contains('Acıktıran Kodlara Doyuran Lezzetler').should('be.visible');
 
 
         })
     })
-
 })
-

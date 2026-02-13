@@ -43,6 +43,7 @@ export default function OrderTextarea(props) {
     <DivWrapper>
       <Label htmlFor="note">Sipariş Notu</Label>
       <TextareaStyled
+      data-cy="noteArea"
         id="note"
         name="note"
         value={note}

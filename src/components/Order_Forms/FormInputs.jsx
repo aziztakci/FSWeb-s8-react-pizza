@@ -89,7 +89,7 @@ export default function FormInputs(props) {
         num: formData.num,
         note: formData.note,
         toppings: formData.selectedToppings,
-        toppingPrice: toppingsPrice,
+        toppingPrice: (formData.selectedToppings.length * 5) * formData.num,
         totalPrice: finalTotal,
       };
 
@@ -101,6 +101,8 @@ export default function FormInputs(props) {
           setActivePage("success");
           setFormData(initialFormData);
           setErrors({ name: "" });
+          console.log(res.data);
+          console.log(res.status)
         })
         .catch((err) => console.error(err));
     }
@@ -184,6 +186,7 @@ export default function FormInputs(props) {
           <DivSummary className="order-footer">
             <OrderCount increaseNum={increaseNum} decreaseNum={decreaseNum} num={formData.num} />
             <SummaryBox
+              num={formData.num}
               isNameValid={isNameValid}
               toppingsPrice={toppingsPrice}
               finalTotal={finalTotal}

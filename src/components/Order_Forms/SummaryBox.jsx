@@ -47,7 +47,7 @@ const ButtonSummary = styled.button`
 
 export default function SummaryBox (props) {
 
-    const {toppingsPrice,finalTotal,isFormInvalid,isNameValid,disabled}=props;
+    const {toppingsPrice,finalTotal,disabled,num}=props;
 
     return (
         <div>
@@ -56,12 +56,12 @@ export default function SummaryBox (props) {
 
           <DivRow className="summary-row">
             <span>Seçimler</span>
-            <span>{toppingsPrice.toFixed(2)}₺</span>
+            <span data-cy="toppingPrice">{(toppingsPrice*num).toFixed(2)}₺</span>
           </DivRow>
 
           <DivRow className="summary-row total" style={{color: "#ce2829"}}>
             <span>Toplam</span>
-            <span>{finalTotal.toFixed(2)}₺</span>
+            <span data-cy="totalPrice">{finalTotal.toFixed(2)}₺</span>
           </DivRow>
 
          

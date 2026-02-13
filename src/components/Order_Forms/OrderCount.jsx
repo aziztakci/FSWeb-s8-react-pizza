@@ -45,11 +45,11 @@ export default function OrderCount (props) {
     return(
         
         <DivCount className="counter-container">
-          <ButtonCount1 type="button" onClick={decreaseNum}>
+          <ButtonCount1 data-cy="decreaseCount" type="button" onClick={decreaseNum}>
             -
           </ButtonCount1>
-          <DivText className="count-display">{num}</DivText>
-          <ButtonCount2 type="button" onClick={increaseNum}>
+          <DivText data-cy="countNum" className="count-display">{num}</DivText>
+          <ButtonCount2 data-cy="increaseCount" type="button" onClick={increaseNum}>
             +
           </ButtonCount2>
         </DivCount>

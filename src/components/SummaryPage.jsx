@@ -140,7 +140,7 @@ export default function SummaryPage(props) {
           </DivRow>
         </DivPrice>
 
-        <ButtonHome onClick={()=>setActivePage("home")}>Ana Sayfaya Dön</ButtonHome>
+        <ButtonHome data-cy="btnHomePage" onClick={()=>setActivePage("home")}>Ana Sayfaya Dön</ButtonHome>
       
     </SectionContainer>
   );
