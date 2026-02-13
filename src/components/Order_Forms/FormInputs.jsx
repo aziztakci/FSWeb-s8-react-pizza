@@ -7,8 +7,24 @@ import RadioButtons from "./RadioButtons";
 import OrderTextarea from "./OrderTextarea";
 import OrderCount from "./OrderCount";
 import SummaryBox from "./SummaryBox";
+import styled from "styled-components";
 
-export default function FormInputs() {
+const FormArea = styled.form`
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 0 auto;
+max-width: 532px;
+min-width: 532px;
+`;
+
+const DivSelection = styled.div`
+display: flex;
+justify-content: space-between;
+`
+export default function FormInputs(props) {
+  const {setActivePage}=props;
+
   const [toppings, setToppings] = useState([]);
   const [formData, setFormData] = useState({
     size: "",
@@ -68,12 +84,13 @@ export default function FormInputs() {
   const finalTotal = (85.5 + toppingsPrice) * formData.num;
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <OrderInfo />
-
+    <FormArea onSubmit={(e) => e.preventDefault()}>
+      <OrderInfo setActivePage={setActivePage}/>
+      <DivSelection>
       <RadioButtons handleChange={handleChange} selectedSize={formData.size} />
-
       <SelectButton handleChange={handleChange} />
+      </DivSelection>
+      
 
       <CheckBox
         toppings={toppings}
@@ -102,6 +119,6 @@ export default function FormInputs() {
           isFormInvalid={isFormInvalid}
         />
       </div>
-    </form>
+    </FormArea>
   );
 }
