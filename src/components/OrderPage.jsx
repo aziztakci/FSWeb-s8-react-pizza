@@ -10,11 +10,11 @@ const DivBox = styled.div`
 `;
 
 export default function OrderPage(props) {
-  const { setActivePage } = props;
+  const { setActivePage,initialFormData,formData,setFormData } = props;
   return (
     <DivBox className="order-page-container">
       <OrderHeader  />
-      <FormInputs setActivePage={setActivePage} />
+      <FormInputs setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData}/>
     </DivBox>
   );
 }

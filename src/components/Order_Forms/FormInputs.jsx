@@ -44,18 +44,44 @@ margin-top: 30px;
 align-items: flex-start;
 `;
 
-export default function FormInputs(props) {
-  const { setActivePage } = props;
 
+export default function FormInputs(props) {
+  const { setActivePage,initialFormData,setFormData,formData } = props;
+
+  const [errors,setErrors] = useState({
+    name:""
+  })
+
+ 
   const [toppings, setToppings] = useState([]);
-  const [formData, setFormData] = useState({
-    size: "",
-    dough: "",
-    note: "",
-    num: 1,
-    name: "",
-    selectedToppings: [],
-  });
+  
+
+  const isNameValid = () => {
+    let valid = false;
+    const errorMessage = {};
+    if (formData.name.trim() === "") {
+      valid = true;
+      errorMessage.name = "Adınızı Giriniz!";
+    } setErrors(errorMessage);
+    return valid;
+  }
+
+   const isFormInvalid =
+    formData.selectedToppings.length < 4 ||
+    formData.selectedToppings.length > 10 ||
+    !formData.size ||
+    !formData.dough;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!isNameValid() && !isFormInvalid) {
+      setFormData(initialFormData);
+      setErrors({name:""});
+    }else {
+      console.error("Hatalı ya da eksik form bilgileri girildi.")
+    }
+  }
+
 
   useEffect(() => {
     axios
@@ -88,11 +114,7 @@ export default function FormInputs(props) {
     }
   };
 
-  const isFormInvalid =
-    formData.selectedToppings.length < 4 ||
-    formData.selectedToppings.length > 10 ||
-    !formData.size ||
-    !formData.dough;
+ 
 
   const increaseNum = () => {
     setFormData({ ...formData, num: formData.num + 1 });
@@ -107,7 +129,7 @@ export default function FormInputs(props) {
   const finalTotal = (85.5 + toppingsPrice) * formData.num;
 
   return (
-    <FormArea onSubmit={(e) => e.preventDefault()}>
+    <FormArea onSubmit={handleSubmit}>
       <ContentSizer>
         <OrderInfo setActivePage={setActivePage} />
       </ContentSizer>
@@ -134,7 +156,7 @@ export default function FormInputs(props) {
             </p>
           )}
 
-          <NameTag name={formData.name} handleChange={handleChange} />
+          <NameTag name={formData.name} handleChange={handleChange} errors={errors}/>
 
           <OrderTextarea note={formData.note} handleChange={handleChange} />
           
@@ -147,7 +169,8 @@ export default function FormInputs(props) {
               num={formData.num}
             />
 
-            <SummaryBox
+            <SummaryBox 
+              isNameValid={isNameValid}
               toppingsPrice={toppingsPrice}
               finalTotal={finalTotal}
               isFormInvalid={isFormInvalid}

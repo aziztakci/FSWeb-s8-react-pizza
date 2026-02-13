@@ -36,13 +36,18 @@ const ButtonSummary = styled.button`
   font-size: 18px;
   font-family: 'Barlow', sans-serif;
   font-weight: bold;
+
+  &:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  }
 `
 
 
 
 export default function SummaryBox (props) {
 
-    const {toppingsPrice,finalTotal,isFormInvalid}=props;
+    const {toppingsPrice,finalTotal,isFormInvalid,isNameValid}=props;
 
     return (
         <div>
@@ -63,7 +68,7 @@ export default function SummaryBox (props) {
         </DivContainer>
          <ButtonSummary
             type="submit"
-            disabled={isFormInvalid}
+            disabled={isFormInvalid || isNameValid}
             className="submit-button"
           >
             SİPARİŞ VER

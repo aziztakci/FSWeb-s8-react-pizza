@@ -6,11 +6,21 @@ import Cards from "./components/Bottom_Cards/Cards";
 import Copyright from "./components/Copyright";
 import OrderPage from "./components/OrderPage";
 import Footer from "./components/Footer_Section/Footer";
+import SummaryPage from "./components/SummaryPage";
 
 
 
 export default function App() {
+   const initialFormData = {
+    size: "",
+    dough: "",
+    note: "",
+    num: 1,
+    name: "",
+    selectedToppings: [],
+  }
   const [activePage, setActivePage] = useState("home");
+const [formData, setFormData] = useState(initialFormData);
 
 
 
@@ -23,10 +33,10 @@ export default function App() {
           <Offers />
           <Cards />
         </>
+      ) : activePage === "order" ? ( 
+        <OrderPage setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData}/>
       ) : (
-        <>
-          <OrderPage setActivePage={setActivePage}/>
-        </>
+        <SummaryPage formData={formData}/>
       )}
       <Footer />
       <Copyright />

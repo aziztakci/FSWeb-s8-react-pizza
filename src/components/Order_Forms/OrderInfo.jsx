@@ -22,8 +22,9 @@ const ButtonHome = styled.button`
   }
 `;
 const HeaderImg = styled.img`
-margin: 0 auto 48px;
-padding-rigth: 10px;
+display: block;
+  margin: 0 auto 48px;
+  transform: translateX(-30px);
 `;
 const DivNav = styled.div`
   display: flex;

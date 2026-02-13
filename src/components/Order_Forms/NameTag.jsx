@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const LabelName = styled.label`
@@ -28,13 +29,15 @@ background-color: #faf7f2;
 `
 
 
+
+
 export default function NameTag (props) {
-    const {name,handleChange} = props;
+    const {name,handleChange,errors} = props;
 
     return (
         <LabelName htmlFor="name">Ad-Soyad <span style={{color: "red"}}> *</span><br />
             <InputArea id="name" type="text" name="name" value={name} onChange={handleChange} placeholder="Ad-soyad*"/>
-            
+            {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
         </LabelName>
     )
 }
