@@ -2,16 +2,17 @@ import CardBottom from "./CardBottom";
 import CardLarge from "./CardLarge";
 import CardTop from "./CardTop";
 
-export default function Offers() {
+export default function Offers(props) {
+  const {setActivePage} = props;
   return (
     <>
       <section className="offers">
         <div className="offer-content">
-          <CardLarge />
+          <CardLarge setActivePage={setActivePage}/>
           
           <div className="cards-right">
-            <CardTop />
-            <CardBottom />
+            <CardTop setActivePage={setActivePage}/>
+            <CardBottom setActivePage={setActivePage}/>
             
           </div>
         </div>

@@ -46,7 +46,7 @@ align-items: flex-start;
 
 
 export default function FormInputs(props) {
-  const { setActivePage,initialFormData,setFormData,formData } = props;
+  const { setActivePage,initialFormData,setFormData,formData,setApiData } = props;
 
   const [errors,setErrors] = useState({
     name:""
@@ -77,13 +77,26 @@ export default function FormInputs(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!isNameValid() && !isFormInvalid) {
-      setFormData(initialFormData);
-      setErrors({name:""});
-    }else {
-      console.error("Hatalı ya da eksik form bilgileri girildi.")
+    const errorName = isNameValid();
+    
+    if (!errorName && !isFormInvalid) {
+      axios.post("https://reqres.in/api/pizza", formData, {
+        headers: { "x-api-key": "reqres_ca9f1ce59f614ae286dbebdc87978513" },
+      })
+      .then(res => {
+        console.log("API Response:", res.data); 
+        setApiData(res.data); 
+        setActivePage("success"); 
+        
+        setFormData(initialFormData);
+        setErrors({ name: "" });
+        console.log("api gönderildi")
+      })
+      .catch(err => console.error(err));
     }
-  }
+  };
+ 
+
 
 
   useEffect(() => {

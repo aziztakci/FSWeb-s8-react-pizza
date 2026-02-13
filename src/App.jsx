@@ -21,6 +21,7 @@ export default function App() {
   }
   const [activePage, setActivePage] = useState("home");
 const [formData, setFormData] = useState(initialFormData);
+const [apiData,setApiData] = useState(null);
 
 
 
@@ -30,13 +31,13 @@ const [formData, setFormData] = useState(initialFormData);
         <>
           <Header setActivePage={setActivePage}/>
           <MenuCategories/>
-          <Offers />
+          <Offers setActivePage={setActivePage}/>
           <Cards />
         </>
       ) : activePage === "order" ? ( 
-        <OrderPage setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData}/>
+        <OrderPage setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData} setApiData={setApiData}/>
       ) : (
-        <SummaryPage formData={formData}/>
+        <SummaryPage apiData={apiData}/>
       )}
       <Footer />
       <Copyright />

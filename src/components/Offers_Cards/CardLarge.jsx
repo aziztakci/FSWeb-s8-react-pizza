@@ -1,5 +1,5 @@
-const CardLarge = () => {
-
+const CardLarge = (props) => {
+const {setActivePage} = props;
     return (
 
        <div className="card-large">
@@ -9,7 +9,7 @@ const CardLarge = () => {
                 Lezzetus
               </h2>
               <p>Position:Absolute Acı Burger</p>
-              <button className="btn2">SİPARİŞ VER</button>
+              <button className="btn2" onClick={()=>setActivePage("order")}>SİPARİŞ VER</button>
             </div>
             <img src="/assets/images/pizza.svg" alt="" />
           </div> 
