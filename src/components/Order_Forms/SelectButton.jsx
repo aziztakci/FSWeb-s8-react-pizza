@@ -25,16 +25,26 @@ border-radius: 5px;
 
 export default function SelectButton(props) {
   const {selectedDough,handleChange } = props;
-  return (
+return (
     <section className="order-select-btn">
       <Title>Hamur Seç <span style={{color: "red"}}> *</span></Title>
-      <SelectStyled defaultValue="" name="dough" onChange={handleChange}>
+      <SelectStyled 
+        defaultValue="" 
+        name="dough" 
+        onChange={handleChange}
+        data-cy="dough-select" 
+      >
         <option value="" disabled hidden>-Hamur Kalınlığı-</option>
-        <option value="İnce">İnce Hamur</option>
-        <option value="Standart">Standart</option>
-        <option value="Kalın">Kalın Hamur</option>
+        <option value="İnce" data-cy="dough-option-ince">İnce Hamur</option>
+        <option value="Standart" data-cy="dough-option-standart">Standart</option>
+        <option value="Kalın" data-cy="dough-option-kalin">Kalın Hamur</option>
       </SelectStyled>
-    {!selectedDough && (<p style={{color:"red"}}>Lütfen hamur tipi seçiniz.</p>)}
+      
+      {!selectedDough && (
+        <p style={{color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}} data-cy="dough-error-message">
+          Lütfen hamur tipi seçiniz.
+        </p>
+      )}
     </section>
   );
 }

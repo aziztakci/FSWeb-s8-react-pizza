@@ -62,7 +62,7 @@ export default function OrderInfo(props) {
       <HeaderImg src="public/assets/iteration-2/pictures/form-banner2.png" alt="" />
           <div>
            <nav className="page-buttons">
-             <ButtonHome className="page-btn" onClick={() => setActivePage("home")}>
+             <ButtonHome data-cy="btnHome" className="page-btn" onClick={() => setActivePage("home")}>
                Anasayfa
              </ButtonHome>
              <span className="page-seperator"> - </span>

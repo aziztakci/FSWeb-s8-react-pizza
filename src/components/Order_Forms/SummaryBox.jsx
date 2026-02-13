@@ -69,6 +69,7 @@ export default function SummaryBox (props) {
          <ButtonSummary
             type="submit"
             disabled={disabled}
+            data-cy="btnSubmit"
             className="submit-button"
           >
             SİPARİŞ VER

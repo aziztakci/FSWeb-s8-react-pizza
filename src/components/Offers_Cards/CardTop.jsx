@@ -6,7 +6,7 @@ const {setActivePage} = props;
                 <h3>
                   Hackathlon<br></br>Burger Menü
                 </h3>
-                <button className="btn2" onClick={()=>setActivePage("order")}>SİPARİŞ VER</button>
+                <button data-cy="btnCardTop" className="btn2" onClick={()=>setActivePage("order")}>SİPARİŞ VER</button>
               </div>
               <img src="/assets/images/menu.svg" alt="" />
             </div>

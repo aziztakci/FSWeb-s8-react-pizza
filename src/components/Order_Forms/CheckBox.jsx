@@ -64,7 +64,7 @@ export default function CheckBox(props) {
           const limitReached = selectedToppings.length >= 10 && !isChecked;
 
           return (
-            <LabelCheck htmlFor={e.name} key={e.id} disabled={limitReached}>
+            <LabelCheck htmlFor={e.name} key={e.id} data-cy={`label-${e.id}`} disabled={limitReached}>
               <input
                 style={{ display: "none" }} 
                 id={e.name}
@@ -72,7 +72,9 @@ export default function CheckBox(props) {
                 type="checkbox"
                 onChange={handleTopChange}
                 checked={isChecked}
+                data-cy={`topping-${e.id}`}
                 disabled={limitReached}
+                
               />
               <InputBtn checked={isChecked}>
                 {isChecked && "✓"}

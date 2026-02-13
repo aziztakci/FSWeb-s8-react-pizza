@@ -36,8 +36,8 @@ export default function NameTag (props) {
 
     return (
         <LabelName htmlFor="name">Ad-Soyad <span style={{color: "red"}}> *</span><br />
-            <InputArea id="name" type="text" name="name" value={name} onChange={handleChange} placeholder="Ad-soyad*"/>
-            {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
+            <InputArea data-cy="name-input" id="name" type="text" name="name" value={name} onChange={handleChange} placeholder="Ad-soyad*"/>
+            {errors.name && <p data-cy="name-error-message" style={{ color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}}>{errors.name}</p>}
         </LabelName>
     )
 }

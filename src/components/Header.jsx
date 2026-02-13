@@ -15,7 +15,7 @@ export default function Header(props) {
         </h1>
       </div>
     </div>
-    <button className="btn" onClick={()=>setActivePage("order")}>ACIKTIM</button>
+    <button data-cy="btnHeader" className="btn" onClick={()=>setActivePage("order")}>ACIKTIM</button>
   </header>
 
     </>

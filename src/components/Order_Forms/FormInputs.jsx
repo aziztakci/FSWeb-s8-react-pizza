@@ -10,6 +10,9 @@ import SummaryBox from "./SummaryBox";
 import styled from "styled-components";
 import NameTag from "./NameTag";
 
+
+const nameRegex = /^[a-zA-ZğüşıöçĞÜŞİÖÇ]{2,}\s+[a-zA-ZğüşıöçĞÜŞİÖÇ]{2,}/;
+
 const FormArea = styled.form`
   display: flex;
   flex-direction: column;
@@ -32,82 +35,76 @@ const ContentSizer = styled.div`
 `;
 
 const DivSelection = styled.div`
-margin: 40px 0;
+  margin: 40px 0;
   display: flex;
   justify-content: space-between;
 `;
 
 const DivSummary = styled.div`
-display: flex;
-justify-content: space-between;
-margin-top: 30px;
-align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  align-items: flex-start;
 `;
 
-
 export default function FormInputs(props) {
-  const { setActivePage,initialFormData,setFormData,formData,setApiData } = props;
+  const { setActivePage, initialFormData, setFormData, formData, setApiData } = props;
 
-  const [errors,setErrors] = useState({
-    name:""
-  })
-
- 
+  const [errors, setErrors] = useState({ name: "" });
   const [toppings, setToppings] = useState([]);
+
   
+  const isValidNameFormat = (nameValue) => {
+    const trimmed = nameValue.trim();
+    return trimmed.length >= 5 && nameRegex.test(trimmed);
+  };
 
   const isNameValid = () => {
-    let valid = false;
-    const errorMessage = {};
-    if (formData.name.trim().length < 2) {
-      valid = true;
-      errorMessage.name = "Adınızı Giriniz!";
-    } setErrors(errorMessage);
-    return valid;
-  }
+    const isValid = isValidNameFormat(formData.name);
+    if (!isValid) {
+      setErrors({ name: "Lütfen adınızı ve soyadınızı aralarında boşluk bırakarak giriniz!" });
+    } else {
+      setErrors({ name: "" });
+    }
+    return isValid; 
+  };
 
-   const isFormInvalid =
+  const isFormInvalid =
     formData.selectedToppings.length < 4 ||
     formData.selectedToppings.length > 10 ||
     !formData.size ||
     !formData.dough;
 
-    const nameHasError = formData.name.trim().length < 2; 
-  const isButtonDisabled = isFormInvalid || nameHasError;
+  
+  const isButtonDisabled = isFormInvalid || !isValidNameFormat(formData.name);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const errorName = isNameValid();
-    const allData = {
-      name: formData.name,
-      size: formData.size,
-      dough: formData.dough,
-      num: formData.num,
-      note: formData.note,
-      toppings: formData.selectedToppings,
-      toppingPrice: toppingsPrice,
-      totalPrice: finalTotal,
-    }
     
-    if (!errorName && !isFormInvalid) {
+    if (isNameValid() && !isFormInvalid) {
+      const allData = {
+        name: formData.name,
+        size: formData.size,
+        dough: formData.dough,
+        num: formData.num,
+        note: formData.note,
+        toppings: formData.selectedToppings,
+        toppingPrice: toppingsPrice,
+        totalPrice: finalTotal,
+      };
+
       axios.post("https://reqres.in/api/pizza", allData, {
-        headers: { "x-api-key": "reqres_ca9f1ce59f614ae286dbebdc87978513" },
-      })
-      .then(res => {
-        console.log("API Response:", res.data); 
-        setApiData(res.data); 
-        setActivePage("success"); 
-        
-        setFormData(initialFormData);
-        setErrors({ name: "" });
-        console.log("api gönderildi")
-      })
-      .catch(err => console.error(err));
+          headers: { "x-api-key": "reqres_ca9f1ce59f614ae286dbebdc87978513" },
+        })
+        .then((res) => {
+          setApiData(res.data);
+          setActivePage("success");
+          setFormData(initialFormData);
+          setErrors({ name: "" });
+        })
+        .catch((err) => console.error(err));
     }
   };
- 
-
-
 
   useEffect(() => {
     axios
@@ -130,27 +127,28 @@ export default function FormInputs(props) {
       } else {
         setFormData({
           ...formData,
-          selectedToppings: formData.selectedToppings.filter(
-            (item) => item !== name
-          ),
+          selectedToppings: formData.selectedToppings.filter((item) => item !== name),
         });
       }
     } else {
       setFormData({ ...formData, [name]: value });
+
+      
+      if (name === "name") {
+        if (!isValidNameFormat(value)) {
+          setErrors({ name: "Lütfen adınızı ve soyadınızı aralarında boşluk bırakarak giriniz!" });
+        } else {
+          setErrors({ name: "" });
+        }
+      }
     }
   };
 
- 
-
-  const increaseNum = () => {
-    setFormData({ ...formData, num: formData.num + 1 });
-  };
-
+  const increaseNum = () => setFormData({ ...formData, num: formData.num + 1 });
   const decreaseNum = () => {
-    if (formData.num > 1) {
-      setFormData({ ...formData, num: formData.num - 1 });
-    }
+    if (formData.num > 1) setFormData({ ...formData, num: formData.num - 1 });
   };
+
   const toppingsPrice = formData.selectedToppings.length * 5;
   const finalTotal = (85.5 + toppingsPrice) * formData.num;
 
@@ -163,11 +161,8 @@ export default function FormInputs(props) {
       <SectionBg>
         <ContentSizer>
           <DivSelection>
-            <RadioButtons
-              handleChange={handleChange}
-              selectedSize={formData.size}
-            />
-            <SelectButton handleChange={handleChange} selectedDough={formData.dough}/>
+            <RadioButtons handleChange={handleChange} selectedSize={formData.size} />
+            <SelectButton handleChange={handleChange} selectedDough={formData.dough} />
           </DivSelection>
 
           <CheckBox
@@ -177,25 +172,18 @@ export default function FormInputs(props) {
           />
 
           {formData.selectedToppings.length < 4 && (
-            <p style={{ color: "red", fontWeight: "bold" }}>
+            <p data-cy="checkbox-error-message" style={{ color: "red", fontSize: "14px", fontFamily: "roboto", fontWeight: "500" }}>
               En az 4 malzeme seçiniz.
             </p>
           )}
 
-          <NameTag name={formData.name} handleChange={handleChange} errors={errors}/>
+          <NameTag name={formData.name} handleChange={handleChange} errors={errors} />
 
           <OrderTextarea note={formData.note} handleChange={handleChange} />
-          
-          
 
           <DivSummary className="order-footer">
-            <OrderCount
-              increaseNum={increaseNum}
-              decreaseNum={decreaseNum}
-              num={formData.num}
-            />
-
-            <SummaryBox 
+            <OrderCount increaseNum={increaseNum} decreaseNum={decreaseNum} num={formData.num} />
+            <SummaryBox
               isNameValid={isNameValid}
               toppingsPrice={toppingsPrice}
               finalTotal={finalTotal}

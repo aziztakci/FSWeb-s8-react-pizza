@@ -9,7 +9,7 @@ const {setActivePage} = props;
                 Lezzetus
               </h2>
               <p>Position:Absolute Acı Burger</p>
-              <button className="btn2" onClick={()=>setActivePage("order")}>SİPARİŞ VER</button>
+              <button data-cy="btnCardLarge" className="btn2" onClick={()=>setActivePage("order")}>SİPARİŞ VER</button>
             </div>
             <img src="/assets/images/pizza.svg" alt="" />
           </div> 

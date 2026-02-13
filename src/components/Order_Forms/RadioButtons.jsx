@@ -38,6 +38,7 @@ export default function RadioButtons({ handleChange, selectedSize }) {
         <LabelRound>
         <input
         hidden
+        data-cy="size-s"
           type="radio"
           name="size"
           value="Küçük"
@@ -50,6 +51,7 @@ export default function RadioButtons({ handleChange, selectedSize }) {
       <LabelRound>
         <input
         hidden
+        data-cy="size-m"
           type="radio"
           name="size"
           value="Standart"
@@ -62,6 +64,7 @@ export default function RadioButtons({ handleChange, selectedSize }) {
       <LabelRound>
         <input
           hidden
+          data-cy="size-l"
           type="radio"
           name="size"
           value="Büyük"
@@ -72,7 +75,7 @@ export default function RadioButtons({ handleChange, selectedSize }) {
       </LabelRound>
       </DivRadio>
       <br />
-      {!selectedSize && <p style={{color: "red"}}>Lütfen bir boyut seçiniz.</p> }
+      {!selectedSize && <p data-cy="size-error-message" style={{color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}}>Lütfen bir boyut seçiniz.</p> }
     </section> 
     
     </>
