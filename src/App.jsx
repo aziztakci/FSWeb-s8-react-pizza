@@ -37,7 +37,7 @@ const [apiData,setApiData] = useState(null);
       ) : activePage === "order" ? ( 
         <OrderPage setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData} setApiData={setApiData}/>
       ) : (
-        <SummaryPage apiData={apiData}/>
+        <SummaryPage apiData={apiData} setActivePage={setActivePage}/>
       )}
       <Footer />
       <Copyright />

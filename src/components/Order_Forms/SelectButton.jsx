@@ -30,9 +30,9 @@ export default function SelectButton(props) {
       <Title>Hamur Seç <span style={{color: "red"}}> *</span></Title>
       <SelectStyled defaultValue="" name="dough" onChange={handleChange}>
         <option value="" disabled hidden>-Hamur Kalınlığı-</option>
-        <option value="thin">İnce Hamur</option>
-        <option value="standart">Standart</option>
-        <option value="thick">Kalın Hamur</option>
+        <option value="İnce">İnce Hamur</option>
+        <option value="Standart">Standart</option>
+        <option value="Kalın">Kalın Hamur</option>
       </SelectStyled>
     {!selectedDough && (<p style={{color:"red"}}>Lütfen hamur tipi seçiniz.</p>)}
     </section>

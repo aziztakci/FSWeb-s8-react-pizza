@@ -78,9 +78,19 @@ export default function FormInputs(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const errorName = isNameValid();
+    const allData = {
+      name: formData.name,
+      size: formData.size,
+      dough: formData.dough,
+      num: formData.num,
+      note: formData.note,
+      toppings: formData.selectedToppings,
+      toppingPrice: toppingsPrice,
+      totalPrice: finalTotal,
+    }
     
     if (!errorName && !isFormInvalid) {
-      axios.post("https://reqres.in/api/pizza", formData, {
+      axios.post("https://reqres.in/api/pizza", allData, {
         headers: { "x-api-key": "reqres_ca9f1ce59f614ae286dbebdc87978513" },
       })
       .then(res => {
