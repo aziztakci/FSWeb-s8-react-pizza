@@ -8,22 +8,44 @@ import OrderTextarea from "./OrderTextarea";
 import OrderCount from "./OrderCount";
 import SummaryBox from "./SummaryBox";
 import styled from "styled-components";
+import NameTag from "./NameTag";
 
 const FormArea = styled.form`
-display: flex;
-flex-direction: column;
-justify-content: center;
-margin: 0 auto;
-max-width: 532px;
-min-width: 532px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const SectionBg = styled.section`
+  background-color: #ffffff !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const ContentSizer = styled.div`
+  max-width: 532px;
+  min-width: 532px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 20px;
 `;
 
 const DivSelection = styled.div`
+margin: 40px 0;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DivSummary = styled.div`
 display: flex;
 justify-content: space-between;
-`
+margin-top: 30px;
+align-items: flex-start;
+`;
+
 export default function FormInputs(props) {
-  const {setActivePage}=props;
+  const { setActivePage } = props;
 
   const [toppings, setToppings] = useState([]);
   const [formData, setFormData] = useState({
@@ -31,6 +53,7 @@ export default function FormInputs(props) {
     dough: "",
     note: "",
     num: 1,
+    name: "",
     selectedToppings: [],
   });
 
@@ -56,7 +79,7 @@ export default function FormInputs(props) {
         setFormData({
           ...formData,
           selectedToppings: formData.selectedToppings.filter(
-            (item) => item !== name,
+            (item) => item !== name
           ),
         });
       }
@@ -85,40 +108,53 @@ export default function FormInputs(props) {
 
   return (
     <FormArea onSubmit={(e) => e.preventDefault()}>
-      <OrderInfo setActivePage={setActivePage}/>
-      <DivSelection>
-      <RadioButtons handleChange={handleChange} selectedSize={formData.size} />
-      <SelectButton handleChange={handleChange} />
-      </DivSelection>
-      
+      <ContentSizer>
+        <OrderInfo setActivePage={setActivePage} />
+      </ContentSizer>
 
-      <CheckBox
-        toppings={toppings}
-        selectedToppings={formData.selectedToppings}
-        handleTopChange={handleChange}
-      />
-      {formData.selectedToppings.length < 4 && (
-        <p style={{ color: "red" }}>En az 4 malzeme seçiniz.</p>
-      )}
+      <SectionBg>
+        <ContentSizer>
+          <DivSelection>
+            <RadioButtons
+              handleChange={handleChange}
+              selectedSize={formData.size}
+            />
+            <SelectButton handleChange={handleChange} selectedDough={formData.dough}/>
+          </DivSelection>
 
-      <OrderTextarea note={formData.note} handleChange={handleChange} />
-      <br />
-      <br />
-      <hr />
+          <CheckBox
+            toppings={toppings}
+            selectedToppings={formData.selectedToppings}
+            handleTopChange={handleChange}
+          />
 
-      <div className="order-footer">
-        <OrderCount
-          increaseNum={increaseNum}
-          decreaseNum={decreaseNum}
-          num={formData.num}
-        />
+          {formData.selectedToppings.length < 4 && (
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              En az 4 malzeme seçiniz.
+            </p>
+          )}
 
-        <SummaryBox
-          toppingsPrice={toppingsPrice}
-          finalTotal={finalTotal}
-          isFormInvalid={isFormInvalid}
-        />
-      </div>
+          <NameTag name={formData.name} handleChange={handleChange} />
+
+          <OrderTextarea note={formData.note} handleChange={handleChange} />
+          
+          
+
+          <DivSummary className="order-footer">
+            <OrderCount
+              increaseNum={increaseNum}
+              decreaseNum={decreaseNum}
+              num={formData.num}
+            />
+
+            <SummaryBox
+              toppingsPrice={toppingsPrice}
+              finalTotal={finalTotal}
+              isFormInvalid={isFormInvalid}
+            />
+          </DivSummary>
+        </ContentSizer>
+      </SectionBg>
     </FormArea>
   );
 }

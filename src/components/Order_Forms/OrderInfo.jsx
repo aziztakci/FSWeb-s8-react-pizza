@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const InfoWrapper = styled.section`
-display: flex;
-flex-direction: column;
-gap: 20px;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
 const ButtonHome = styled.button`
   background: none;
   border: none;
