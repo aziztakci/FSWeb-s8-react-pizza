@@ -44,45 +44,53 @@ const DivSpan = styled.div`
 `;
 const Span = styled.span`
   font-size: 28px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   font-weight: bold;
 `;
 const Title = styled.h1`
-font-size: 22px;
-font-family: 'Barlow', sans-serif;
-font-weight: medium;
-`
+  font-size: 22px;
+  font-family: "Barlow", sans-serif;
+  font-weight: medium;
+`;
 const Info = styled.p`
-font-size: 16px;
-font-family: 'Barlow', sans-serif;
-line-height: 30px;
-
-`
-
-
+  font-size: 16px;
+  font-family: "Barlow", sans-serif;
+  line-height: 30px;
+`;
 
 export default function OrderInfo(props) {
-  const {setActivePage} = props;
+  const { setActivePage } = props;
   return (
     <InfoWrapper className="order-info">
-      <HeaderImg src="public/assets/iteration-2/pictures/form-banner2.png" alt="" />
-          <div>
-           <nav className="page-buttons">
-             <ButtonHome data-cy="btnHome" className="page-btn" onClick={() => setActivePage("home")}>
-               Anasayfa
-             </ButtonHome>
-             <span className="page-seperator"> - </span>
-             <span className="page-active" style={{color:"red",fontWeight:"bold"}}>Sipariş Oluştur</span>
-           </nav>
-         </div>
+      <HeaderImg
+        src="public/assets/iteration-2/pictures/form-banner2.png"
+        alt=""
+      />
+      <div>
+        <nav className="page-buttons">
+          <ButtonHome
+            data-cy="btnHome"
+            className="page-btn"
+            onClick={() => setActivePage("home")}
+          >
+            Anasayfa
+          </ButtonHome>
+          <span className="page-seperator"> - </span>
+          <span
+            className="page-active"
+            style={{ color: "red", fontWeight: "bold" }}
+          >
+            Sipariş Oluştur
+          </span>
+        </nav>
+      </div>
       <Title>Position Absolute Acı Pizza</Title>
       <DivNav>
         <Span>85.50₺</Span>
         <DivSpan>
           <span>4.9</span>
-        <span>(200)</span>
+          <span>(200)</span>
         </DivSpan>
-        
       </DivNav>
       <Info className="order-info-text">
         Frontent Dev olarak hala position:absolute kullanıyorsan bu çok acı

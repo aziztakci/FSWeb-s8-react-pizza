@@ -7,15 +7,22 @@ const DivBox = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 0 auto;
-  background-color:
+  background-color:;
 `;
 
 export default function OrderPage(props) {
-  const { setActivePage,initialFormData,formData,setFormData,setApiData } = props;
+  const { setActivePage, initialFormData, formData, setFormData, setApiData } =
+    props;
   return (
     <DivBox className="order-page-container">
-      <OrderHeader  />
-      <FormInputs setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData} setApiData={setApiData}/>
+      <OrderHeader />
+      <FormInputs
+        setActivePage={setActivePage}
+        setFormData={setFormData}
+        initialFormData={initialFormData}
+        formData={formData}
+        setApiData={setApiData}
+      />
     </DivBox>
   );
 }

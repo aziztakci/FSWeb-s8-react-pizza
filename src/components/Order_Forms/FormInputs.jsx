@@ -10,7 +10,6 @@ import SummaryBox from "./SummaryBox";
 import styled from "styled-components";
 import NameTag from "./NameTag";
 
-
 const nameRegex = /^[a-zA-ZğüşıöçĞÜŞİÖÇ]{2,}\s+[a-zA-ZğüşıöçĞÜŞİÖÇ]{2,}/;
 
 const FormArea = styled.form`
@@ -34,8 +33,8 @@ const ContentSizer = styled.div`
   margin: 0 auto 20px;
 
   @media (max-width: 768px) {
-    min-width: 80%; 
-    padding: 0 30px; 
+    min-width: 80%;
+    padding: 0 30px;
   }
 `;
 
@@ -52,24 +51,22 @@ const DivSummary = styled.div`
   align-items: flex-start;
 
   @media (max-width: 768px) {
-  
-    }
+  }
 `;
 
 const Pmedia = styled.p`
-@media (max-width: 768px) {
- margin-top: 20px;
-  
-    }
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
 `;
 
 export default function FormInputs(props) {
-  const { setActivePage, initialFormData, setFormData, formData, setApiData } = props;
+  const { setActivePage, initialFormData, setFormData, formData, setApiData } =
+    props;
 
   const [errors, setErrors] = useState({ name: "" });
   const [toppings, setToppings] = useState([]);
 
-  
   const isValidNameFormat = (nameValue) => {
     const trimmed = nameValue.trim();
     return trimmed.length >= 5 && nameRegex.test(trimmed);
@@ -78,11 +75,13 @@ export default function FormInputs(props) {
   const isNameValid = () => {
     const isValid = isValidNameFormat(formData.name);
     if (!isValid) {
-      setErrors({ name: "Lütfen adınızı ve soyadınızı aralarında boşluk bırakarak giriniz!" });
+      setErrors({
+        name: "Lütfen adınızı ve soyadınızı aralarında boşluk bırakarak giriniz!",
+      });
     } else {
       setErrors({ name: "" });
     }
-    return isValid; 
+    return isValid;
   };
 
   const isFormInvalid =
@@ -91,12 +90,11 @@ export default function FormInputs(props) {
     !formData.size ||
     !formData.dough;
 
-  
   const isButtonDisabled = isFormInvalid || !isValidNameFormat(formData.name);
-
+const api_key=import.meta.env.VITE_REQRES_API_KEY || 'reqres-free-v1';
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     if (isNameValid() && !isFormInvalid) {
       const allData = {
         name: formData.name,
@@ -105,12 +103,13 @@ export default function FormInputs(props) {
         num: formData.num,
         note: formData.note,
         toppings: formData.selectedToppings,
-        toppingPrice: (formData.selectedToppings.length * 5) * formData.num,
+        toppingPrice: formData.selectedToppings.length * 5 * formData.num,
         totalPrice: finalTotal,
       };
 
-      axios.post("https://reqres.in/api/pizza", allData, {
-          headers: { "x-api-key": "reqres_ca9f1ce59f614ae286dbebdc87978513" },
+      axios
+        .post("https://reqres.in/api/pizza", allData, {
+          headers: { "x-api-key": api_key },
         })
         .then((res) => {
           setApiData(res.data);
@@ -118,7 +117,7 @@ export default function FormInputs(props) {
           setFormData(initialFormData);
           setErrors({ name: "" });
           console.log(res.data);
-          console.log(res.status)
+          console.log(res.status);
         })
         .catch((err) => console.error(err));
     }
@@ -145,16 +144,19 @@ export default function FormInputs(props) {
       } else {
         setFormData({
           ...formData,
-          selectedToppings: formData.selectedToppings.filter((item) => item !== name),
+          selectedToppings: formData.selectedToppings.filter(
+            (item) => item !== name,
+          ),
         });
       }
     } else {
       setFormData({ ...formData, [name]: value });
 
-      
       if (name === "name") {
         if (!isValidNameFormat(value)) {
-          setErrors({ name: "Lütfen adınızı ve soyadınızı aralarında boşluk bırakarak giriniz!" });
+          setErrors({
+            name: "Lütfen adınızı ve soyadınızı aralarında boşluk bırakarak giriniz!",
+          });
         } else {
           setErrors({ name: "" });
         }
@@ -179,8 +181,14 @@ export default function FormInputs(props) {
       <SectionBg>
         <ContentSizer>
           <DivSelection>
-            <RadioButtons handleChange={handleChange} selectedSize={formData.size} />
-            <SelectButton handleChange={handleChange} selectedDough={formData.dough} />
+            <RadioButtons
+              handleChange={handleChange}
+              selectedSize={formData.size}
+            />
+            <SelectButton
+              handleChange={handleChange}
+              selectedDough={formData.dough}
+            />
           </DivSelection>
 
           <CheckBox
@@ -190,17 +198,33 @@ export default function FormInputs(props) {
           />
 
           {formData.selectedToppings.length < 4 && (
-            <Pmedia data-cy="checkbox-error-message" style={{ color: "red", fontSize: "14px", fontFamily: "roboto", fontWeight: "500" }}>
+            <Pmedia
+              data-cy="checkbox-error-message"
+              style={{
+                color: "red",
+                fontSize: "14px",
+                fontFamily: "roboto",
+                fontWeight: "500",
+              }}
+            >
               En az 4 malzeme seçiniz.
             </Pmedia>
           )}
 
-          <NameTag name={formData.name} handleChange={handleChange} errors={errors} />
+          <NameTag
+            name={formData.name}
+            handleChange={handleChange}
+            errors={errors}
+          />
 
           <OrderTextarea note={formData.note} handleChange={handleChange} />
 
           <DivSummary className="order-footer">
-            <OrderCount increaseNum={increaseNum} decreaseNum={decreaseNum} num={formData.num} />
+            <OrderCount
+              increaseNum={increaseNum}
+              decreaseNum={decreaseNum}
+              num={formData.num}
+            />
             <SummaryBox
               num={formData.num}
               isNameValid={isNameValid}

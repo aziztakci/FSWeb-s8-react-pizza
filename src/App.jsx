@@ -8,36 +8,38 @@ import OrderPage from "./components/OrderPage";
 import Footer from "./components/Footer_Section/Footer";
 import SummaryPage from "./components/SummaryPage";
 
-
-
 export default function App() {
-   const initialFormData = {
+  const initialFormData = {
     size: "",
     dough: "",
     note: "",
     num: 1,
     name: "",
     selectedToppings: [],
-  }
+  };
   const [activePage, setActivePage] = useState("home");
-const [formData, setFormData] = useState(initialFormData);
-const [apiData,setApiData] = useState(null);
-
-
+  const [formData, setFormData] = useState(initialFormData);
+  const [apiData, setApiData] = useState(null);
 
   return (
     <>
       {activePage === "home" ? (
         <>
-          <Header setActivePage={setActivePage}/>
-          <MenuCategories/>
-          <Offers setActivePage={setActivePage}/>
+          <Header setActivePage={setActivePage} />
+          <MenuCategories />
+          <Offers setActivePage={setActivePage} />
           <Cards />
         </>
-      ) : activePage === "order" ? ( 
-        <OrderPage setActivePage={setActivePage} setFormData={setFormData} initialFormData= {initialFormData} formData={formData} setApiData={setApiData}/>
+      ) : activePage === "order" ? (
+        <OrderPage
+          setActivePage={setActivePage}
+          setFormData={setFormData}
+          initialFormData={initialFormData}
+          formData={formData}
+          setApiData={setApiData}
+        />
       ) : (
-        <SummaryPage apiData={apiData} setActivePage={setActivePage}/>
+        <SummaryPage apiData={apiData} setActivePage={setActivePage} />
       )}
       <Footer />
       <Copyright />

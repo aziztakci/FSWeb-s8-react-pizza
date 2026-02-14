@@ -6,15 +6,12 @@ const DivRadio = styled.div`
   @media (max-width: 768px) {
     transform: translateX(-13px);
     flex-direction: column;
-    gap:2px;
+    gap: 2px;
     min-width: 100%;
     max-width: 100%;
     padding: 0 30px;
   }
 `;
-
-
-
 
 const LabelRound = styled.label`
   border: 1px hidden;
@@ -39,18 +36,16 @@ const Title = styled.h2`
   margin-bottom: 19px;
 `;
 
-
 const Pmedia = styled.p`
-@media (max-width: 768px) {
- 
-  transform: translateX(-30px);
-    }
+  @media (max-width: 768px) {
+    transform: translateX(-30px);
+  }
 `;
 
 const SectionMedia = styled.section`
-@media (max-width: 768px) {
-  transform: translateX(50px);
-    }
+  @media (max-width: 768px) {
+    transform: translateX(50px);
+  }
 `;
 
 export default function RadioButtons({ handleChange, selectedSize }) {
