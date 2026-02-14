@@ -7,6 +7,7 @@ const DivBox = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 0 auto;
+  background-color:
 `;
 
 export default function OrderPage(props) {

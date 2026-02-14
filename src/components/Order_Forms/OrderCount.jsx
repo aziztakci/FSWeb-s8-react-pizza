@@ -3,6 +3,10 @@ import styled from "styled-components";
 const DivCount = styled.div`
 display:flex;
 align-items: center;
+@media (max-width: 768px) {
+  flex-direction: column-reverse;
+
+    }
 `;
 
 const ButtonCount1 = styled.button`
@@ -14,6 +18,13 @@ const ButtonCount1 = styled.button`
   font-size: 20px;
   font-family: 'Barlow', sans-serif;
   font-weight: bold;
+@media (max-width: 768px) {
+  width: 85px;
+  height: 85px;
+  border-radius:  0 0 6px 6px ;
+
+    }
+
 `;
 
 const ButtonCount2 = styled.button`
@@ -25,6 +36,13 @@ const ButtonCount2 = styled.button`
   font-size: 20px;
   font-family: 'Barlow', sans-serif;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+  width: 85px;
+  height: 85px;
+  border-radius:  6px 6px 0 0;
+
+    }
 `;
 
 const DivText = styled.div`
@@ -37,6 +55,12 @@ font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+  width: 85px;
+  height: 85px;
+
+    }
 `;
 
 

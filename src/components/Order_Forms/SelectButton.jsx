@@ -20,8 +20,22 @@ padding-left: 20px;
 border: none;
 border-radius: 5px;
 
+@media (max-width: 768px) {
+ display: block;
+  transform: translateX(-42px);
+    min-width: 100%; 
+    max-width: 100%;
+    padding: 0 30px; }
+`;
 
-`
+
+const Pmedia = styled.p`
+padding-top: 23px;
+@media (max-width: 768px) {
+ 
+  transform: translateX(-30px);
+    }
+`;
 
 export default function SelectButton(props) {
   const {selectedDough,handleChange } = props;
@@ -41,9 +55,9 @@ return (
       </SelectStyled>
       
       {!selectedDough && (
-        <p style={{color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}} data-cy="dough-error-message">
+        <Pmedia style={{color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}} data-cy="dough-error-message">
           Lütfen hamur tipi seçiniz.
-        </p>
+        </Pmedia>
       )}
     </section>
   );

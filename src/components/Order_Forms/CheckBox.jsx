@@ -47,7 +47,17 @@ const InputBtn = styled.div`
   font-family: 'Barlow', sans-serif;
   font-weight: 900; 
   color: #464545;
-  
+
+   @media (max-width: 768px) {
+    transform: translateX(10px);
+    flex-direction: column;
+    width: 30px;
+    height: 30px;
+    border: ${props => props.checked ? "1px solid #000000" : "none"};
+    
+    
+  }
+
 `;
 
 export default function CheckBox(props) {

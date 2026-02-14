@@ -27,7 +27,12 @@ background-color: #faf7f2;
     padding-top: 3px;
     padding-left: 15px;
 `
-
+const Pmedia = styled.p`
+@media (max-width: 768px) {
+ margin-top: 10px;
+  
+    }
+`;
 
 
 
@@ -37,7 +42,7 @@ export default function NameTag (props) {
     return (
         <LabelName htmlFor="name">Ad-Soyad <span style={{color: "red"}}> *</span><br />
             <InputArea data-cy="name-input" id="name" type="text" name="name" value={name} onChange={handleChange} placeholder="Ad-soyad*"/>
-            {errors.name && <p data-cy="name-error-message" style={{ color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}}>{errors.name}</p>}
+            {errors.name && <Pmedia data-cy="name-error-message" style={{ color: 'red' ,fontSize: "14px", fontFamily: "roboto", fontWeight:"500"}}>{errors.name}</Pmedia>}
         </LabelName>
     )
 }

@@ -87,6 +87,9 @@ margin-bottom: 30px;
   border: 1px solid #d9d9d9;
   padding: 48.45px;
   border-radius: 6px 6px 0 0 ;
+
+  @media (max-width: 768px) {
+ margin-bottom: 50px;
   
 `;
 
@@ -99,6 +102,11 @@ font-size: 20px;
   font-weight: 400;
   color: #5f5f5f;
   padding:5px 15px;
+
+   @media (max-width: 768px) {
+ margin-bottom: 50px;
+  
+    }
 `
 
 

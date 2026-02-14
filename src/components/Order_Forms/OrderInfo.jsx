@@ -25,6 +25,12 @@ const HeaderImg = styled.img`
 display: block;
   margin: 0 auto 48px;
   transform: translateX(-30px);
+  @media (max-width: 768px) {
+  display: block;
+  transform: translateX(-5px);
+    min-width: 100%; 
+    max-width: 100%;
+    padding: 0 30px; 
 `;
 const DivNav = styled.div`
   display: flex;

@@ -32,6 +32,11 @@ const ContentSizer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto 20px;
+
+  @media (max-width: 768px) {
+    min-width: 80%; 
+    padding: 0 30px; 
+  }
 `;
 
 const DivSelection = styled.div`
@@ -45,6 +50,17 @@ const DivSummary = styled.div`
   justify-content: space-between;
   margin-top: 30px;
   align-items: flex-start;
+
+  @media (max-width: 768px) {
+  
+    }
+`;
+
+const Pmedia = styled.p`
+@media (max-width: 768px) {
+ margin-top: 20px;
+  
+    }
 `;
 
 export default function FormInputs(props) {
@@ -174,9 +190,9 @@ export default function FormInputs(props) {
           />
 
           {formData.selectedToppings.length < 4 && (
-            <p data-cy="checkbox-error-message" style={{ color: "red", fontSize: "14px", fontFamily: "roboto", fontWeight: "500" }}>
+            <Pmedia data-cy="checkbox-error-message" style={{ color: "red", fontSize: "14px", fontFamily: "roboto", fontWeight: "500" }}>
               En az 4 malzeme seçiniz.
-            </p>
+            </Pmedia>
           )}
 
           <NameTag name={formData.name} handleChange={handleChange} errors={errors} />
